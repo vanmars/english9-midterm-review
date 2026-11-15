@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>English 9 Midterm Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,500;0,7..72,700;1,7..72,500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Layout: header and section tabs, then one practice panel per section; the reading section pairs the passage with its questions side by side on wide screens. */
+  --paper: #f3f5f7;
+  --surface: #ffffff;
+  --ink: #1b2330;
+  --muted: #5b6676;
+  --accent: #2c5a8c;
+  --back: #fbf3e4;
+  --line: #d9dee5;
+  --accent-ink: #ffffff;
+  --good: #1f7a4d;
+  --good-bg: #e3f4ea;
+  --bad: #b23b3b;
+  --bad-bg: #fbe6e6;
+  --font-display: "Literata", Georgia, "Times New Roman", serif;
+  --font-body: "Source Sans 3", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #12161d; --surface: #1b212b; --ink: #e8ecf1; --muted: #9aa5b4;
+    --accent: #7fb0e6; --back: #2a2519; --line: #2f3845; --accent-ink: #0f1620;
+    --good: #6fd19c; --good-bg: #173326; --bad: #f08c8c; --bad-bg: #3a1d1d;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #12161d; --surface: #1b212b; --ink: #e8ecf1; --muted: #9aa5b4;
+  --accent: #7fb0e6; --back: #2a2519; --line: #2f3845; --accent-ink: #0f1620;
+  --good: #6fd19c; --good-bg: #173326; --bad: #f08c8c; --bad-bg: #3a1d1d;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 18px; line-height: 1.5; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 24px 16px 48px; display: grid; gap: 20px; }
+header { display: grid; gap: 6px; }
+h1 { font-family: var(--font-display); font-weight: 700; font-size: 2rem; line-height: 1.15; margin: 0; text-wrap: balance; }
+.sub { color: var(--muted); margin: 0; max-width: 70ch; }
+nav { display: flex; flex-wrap: wrap; gap: 8px; }
+.tab, .subtab {
+  font: inherit; font-size: 0.95rem; font-weight: 600; border: 1px solid var(--line);
+  background: var(--surface); color: var(--ink); padding: 8px 14px; border-radius: 999px; cursor: pointer;
+  display: inline-flex; gap: 8px; align-items: center;
+}
+.tab .num { color: var(--muted); font-weight: 700; font-variant-numeric: tabular-nums; }
+.tab[aria-selected="true"], .subtab[aria-selected="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.tab[aria-selected="true"] .num { color: inherit; opacity: 0.8; }
+button:focus-visible, .card:focus-visible, textarea:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.section-head { display: grid; gap: 4px; }
+h2 { font-family: var(--font-display); font-weight: 500; font-size: 1.45rem; margin: 0; }
+.section-head p { margin: 0; color: var(--muted); max-width: 70ch; }
+.panel { display: grid; gap: 16px; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
+.progress { font-size: 0.95rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.score { font-weight: 700; color: var(--ink); }
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 24px; box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(20,35,60,0.06); }
+.kind { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.q { font-size: 1.2rem; margin: 0 0 16px; }
+.q .sample { font-family: var(--font-display); font-style: italic; }
+.choices { display: grid; gap: 8px; }
+.choice {
+  font: inherit; font-size: 1.05rem; text-align: left; cursor: pointer; width: 100%;
+  padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+  display: flex; gap: 10px;
+}
+.choice .letter { font-weight: 700; min-width: 1.4em; }
+.choice:hover:not(:disabled) { border-color: var(--accent); }
+.choice:disabled { cursor: default; }
+.choice.correct { background: var(--good-bg); border-color: var(--good); }
+.choice.wrong { background: var(--bad-bg); border-color: var(--bad); }
+.feedback { margin-top: 14px; padding: 12px 14px; border-radius: 10px; border-left: 4px solid var(--line); background: var(--paper); }
+.feedback.good { border-left-color: var(--good); }
+.feedback.bad { border-left-color: var(--bad); }
+.feedback strong { display: block; margin-bottom: 2px; }
+textarea { width: 100%; min-height: 90px; font: inherit; font-size: 1rem; padding: 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); resize: vertical; }
+label.small { font-size: 0.9rem; color: var(--muted); display: block; margin-bottom: 6px; }
+.controls { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.btn { font: inherit; font-weight: 600; font-size: 1rem; cursor: pointer; padding: 10px 18px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn:disabled { opacity: 0.45; cursor: default; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface); }
+.seg-label { font-size: 0.9rem; color: var(--muted); margin-right: 8px; }
+.seg button { font: inherit; font-size: 0.9rem; border: 0; background: transparent; color: var(--ink); padding: 6px 12px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.stage { perspective: 1400px; }
+.card { display: grid; cursor: pointer; transition: transform 0.45s ease; transform-style: preserve-3d; min-height: 300px; }
+.card.flipped { transform: rotateY(180deg); }
+.face { grid-area: 1 / 1; backface-visibility: hidden; -webkit-backface-visibility: hidden; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(20,35,60,0.06); }
+.face.back { transform: rotateY(180deg); background: var(--back); }
+.face .main { flex: 1; display: grid; align-content: center; font-size: 1.25rem; }
+.face .main.big { font-family: var(--font-display); font-size: 2rem; font-weight: 500; text-align: center; text-wrap: balance; }
+.hint { font-size: 0.85rem; color: var(--muted); text-align: right; }
+.reading { display: grid; gap: 16px; grid-template-columns: 1fr; align-items: start; }
+@media (min-width: 900px) { .reading { grid-template-columns: 1.05fr 1fr; } .passage { position: sticky; top: 16px; max-height: calc(100vh - 32px); overflow: auto; } }
+.passage { background: var(--back); border: 1px solid var(--line); border-radius: 14px; padding: 22px 24px; }
+.passage h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; margin: 0 0 4px; }
+.passage .genre { font-size: 0.85rem; color: var(--muted); margin: 0 0 12px; }
+.passage p { font-family: var(--font-display); font-size: 1.05rem; line-height: 1.65; margin: 0 0 12px; max-width: 65ch; }
+.passage .pnum { font-family: var(--font-body); font-size: 0.75rem; font-weight: 700; color: var(--muted); margin-right: 6px; }
+.subtabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.keys { text-align: center; font-size: 0.85rem; color: var(--muted); margin: 0; }
+@media (prefers-reduced-motion: reduce) { .card { transition: none; } }
+@media (max-width: 480px) { h1 { font-size: 1.6rem; } .box, .face { padding: 18px; } .q { font-size: 1.1rem; } .face .main.big { font-size: 1.6rem; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>English 9 Midterm Review</h1>
+    <p class="sub">Practice questions in the same style as the midterm. Work through each section, check your answer, and read the explanation before moving on.</p>
+  </header>
+  <nav id="tabs" role="tablist" aria-label="Review sections"></nav>
+  <section class="section-head">
+    <h2 id="section-title"></h2>
+    <p id="section-desc"></p>
+  </section>
+  <div id="view" class="panel"></div>
+</div>
+
+<script>
+/* ---------- Content ---------- */
+const MC = (q, o, a, why) => ({ type: "mc", q, o, a, why });
+const FIX = (q, a) => ({ type: "fix", q, a });
+
+const GENRES = [
+  MC("According to Joseph Campbell, which function of myth inspires awe and gratitude toward the mystery of the universe?", ["Sociological", "Mystical (metaphysical)", "Psychological (pedagogical)", "Cosmological"], 1, "The mystical function awakens awe and gratitude toward the mystery dimension of the universe."),
+  MC("A myth explains why the seasons change, linking what farmers see each year to the mystery of the universe. Which function does it serve?", ["Cosmological", "Sociological", "Mystical", "Psychological"], 0, "The cosmological function presents an image of the universe that links local knowledge and experience to its mystery."),
+  MC("A myth shows the gods punishing a man who turned away a hungry traveler, teaching the community to welcome strangers. Which function does it serve?", ["Mystical", "Psychological", "Sociological", "Cosmological"], 2, "The sociological function validates and imprints the norms of a society."),
+  MC("A myth follows a boy through the trials that make him a man in his tribe. Which function does it serve?", ["Cosmological", "Sociological", "Mystical", "Psychological (pedagogical)"], 3, "The psychological function guides each person through the stages of life within their culture."),
+  MC("According to Campbell, what is true of a mythology, taken as a whole, that fails to fulfill all four functions?", ["It has lost its vitality.", "It becomes a fantasy.", "It turns into history.", "It must be rewritten."], 0, "Not every single myth serves all four functions, but a mythology as a whole that fails to do so has lost its vitality."),
+  MC("Which is the best definition of an archetype?", ["A character who always wins", "An original model, perfect example, or universal pattern from which other things are copied", "A symbol whose meaning never changes", "A story set in the distant past"], 1, "Archetypes are universal patterns that appear across cultures and time periods."),
+  MC("An old hermit gives the young hero a map, a warning, and lessons in sword-fighting before the journey begins. Which archetype is the hermit?", ["The Trickster", "The Helper", "The Mentor", "The Threshold Guardian"], 2, "The Mentor is usually older and trains and guides the hero, representing wisdom."),
+  MC("A troll refuses to let the hero cross a bridge until he answers three riddles. The troll serves the dark queen. Which archetype is the troll?", ["The Threshold Guardian", "The Villain", "The Scapegoat", "The Innocent"], 0, "The Threshold Guardian is the gatekeeper who tries to block the hero, often the villain's henchman."),
+  MC("When the harvest fails, the villagers blame a quiet stranger who had nothing to do with it and drive him out of town. Which archetype is the stranger?", ["The Anti-Hero", "The Trickster", "The Mentor", "The Scapegoat"], 3, "The Scapegoat suffers or is blamed unjustly so that others escape blame."),
+  MC("A prince is locked away in a high, isolated stone room as punishment for his pride. Which archetypal setting is this?", ["The Garden", "The Tower", "The Village", "The River"], 1, "The Tower is a high, isolated place of pride, forced separation, or heavy control."),
+  MC("A poor orphan who sells matches on the street rises to become the city's wisest judge. Which archetypal plot is this?", ["The Fall", "Death and Rebirth", "Rags to Riches", "Tradition vs. Change"], 2, "Rags to Riches is a rise from poverty or obscurity to power, wealth, or wisdom."),
+  MC("Which of these is NOT a subgenre of speculative fiction?", ["Dystopian fiction", "Magical realism", "Alternate history", "Realistic fiction"], 3, "Speculative fiction departs from everyday realism. Realistic fiction stays inside it."),
+  MC("Which story is the best example of magical realism?", ["Elves fight a war in an enchanted kingdom.", "In an ordinary fishing village, a woman's tears turn into moths, and she sweeps them out with the morning dust.", "Scientists build a time machine in a laboratory.", "A teenager struggles to make the soccer team."], 1, "Magical realism places magic in a realistic setting and treats it as matter-of-fact."),
+  MC("Magical realism combines the observed facts of reality with which tradition?", ["Indigenous Latin American storytelling: myths, legends, and fables with supernatural elements", "Scientific journals", "Medieval knight romances", "Government records"], 0, "Many Latinos grow up hearing these ancient stories, and magical realism blends them with everyday reality."),
+  MC("Why did many Latin American artists and authors turn to magical realism after World War II?", ["To celebrate new technology", "To retell Greek myths", "To question absolute truth and criticize cruel regimes in an indirect, surprising way", "To write stories for young children"], 2, "Suffering under dictatorships led people to look for new ways to explain reality and criticize power."),
+  MC("What makes science fiction different from fantasy?", ["Science fiction is always set in space.", "Science fiction relies on logic and scientific explanations; fantasy relies on magic that needs no explanation.", "Fantasy is always set in the future.", "There is no difference."], 1, "Plausible scientific details separate science fiction from fantasy."),
+  MC("A writer imagines that social media scores decide who gets a job, a home, and a doctor. Which of Neil Gaiman's phrases is the writer using?", ["\"If this goes on...?\"", "\"If only...?\"", "\"What if...?\"", "\"Once upon a time...\""], 0, "\"If this goes on\" takes a current trend and exaggerates it to see where it leads."),
+  MC("A story begins: one morning, the sun simply fails to rise. Which of Gaiman's phrases best fits this premise?", ["\"If this goes on...?\"", "\"If only...?\"", "\"What if...?\"", "\"Happily ever after\""], 2, "\"What if\" creates a sudden departure from our current reality."),
+  MC("The Hitchhiker's Guide to the Galaxy first began as what?", ["A comic book", "A BBC radio comedy series", "A silent film", "A newspaper column"], 1, "Douglas Adams's story began as a BBC radio comedy in 1978 before it became a series of novels."),
+  MC("Which statement about Jules Verne and the submarine is accurate?", ["Verne invented the submarine.", "Submarines did not exist in his time.", "Real submarines were basic; Verne imagined a far more advanced, electricity-powered Nautilus.", "Verne served as a submarine captain."], 2, "Verne expanded on a real invention, and his vision inspired later submarine development."),
+  MC("Which is the best definition of historical fiction?", ["A true biography with no invented details", "A story set in a real time and place in the past that blends researched facts with invented characters, dialogue, and scenes", "A story set in the present day", "A story where history turns out differently"], 1, "Historical fiction is grounded in fact and shaped by imagination."),
+  MC("Which title from our notes is realistic fiction rather than historical fiction?", ["Number the Stars", "Fever 1793", "Wonder", "The Book Thief"], 2, "Wonder is set in the present day with true-to-life problems; the others are set in real past eras."),
+  MC("In historical fiction, which detail may the writer imagine rather than research?", ["The date of a major battle", "The food people ate in that era", "A character's private thoughts", "Which real people lived in the town"], 2, "Thoughts, feelings, exact conversations, and small scenes between known events can be imagined."),
+  MC("What is the Golden Rule of historical fiction?", ["Every character must be a real person.", "Imagined details must be plausible and must never contradict the historical record.", "The story must end happily.", "Only primary sources may be used."], 1, "Imagination can fill the silences, but never against the facts."),
+  MC("A historical novel set in 1850 shows its characters cooking over a fire, writing with quill pens, and paying in coins of the era. Which element of the genre is this?", ["Authentic details", "Lasting theme", "Layered conflict", "Realistic fiction"], 0, "Authentic details include the food, clothing, tools, money, and speech of the era."),
+];
+
+const TERMS = [
+  ["Setting", "The time and place in which a story's main narrative occurs, along with the values associated with them."],
+  ["First-person point of view", "The narrator is a character in the story (I, me, my) and knows events only from their own perspective."],
+  ["Second-person point of view", "The narrator addresses the reader directly (you, your), making the reader a participant in the story."],
+  ["Third-person limited point of view", "The narrator uses he, she, or they and knows the thoughts of some, but not all, characters."],
+  ["Third-person omniscient point of view", "The narrator uses he, she, or they, is unbound by time or space, and knows all characters' thoughts."],
+  ["Protagonist", "The character around whom all of the action takes place; must undergo some major change."],
+  ["Antagonist", "The character or force that opposes the protagonist: a person, nature, society, or something within the protagonist."],
+  ["Foil", "A character whose contrasting qualities highlight the traits of another character."],
+  ["Anti-hero", "A protagonist who lacks the typical heroic qualities of bravery, courage, and morality."],
+  ["Stock character", "A flat, stereotypical, easily recognizable character tied to a specific genre."],
+  ["Flat character", "A one-dimensional character with only one or two traits."],
+  ["Static character", "A character who remains largely the same throughout the story."],
+  ["Dynamic character", "A character who changes significantly throughout the story."],
+  ["Direct characterization", "The author directly tells the reader what a character is like."],
+  ["Indirect characterization", "The author reveals a character through speech, actions, and what other characters say about them."],
+  ["Plot", "The author's arrangement of events in a story."],
+  ["Exposition", "Details that introduce characters, setting, and other key background information."],
+  ["Inciting incident", "The event that starts the story's central problem."],
+  ["Rising action", "The additional complications that happen on the way to the climax."],
+  ["Climax", "The crisis, defining moment, or decision point for the protagonist."],
+  ["Falling action", "Final details and events that serve as the fallout of the climax."],
+  ["Resolution", "How the story resolves; an insight, a revelation, or an unresolved or ironic ending."],
+  ["Inner conflict", "A struggle that comes from the main character's own feelings, thoughts, fears, or desires."],
+  ["External conflict", "A struggle from outside the character: person vs. person, nature, society, or entity."],
+  ["The Hero's Journey", "A pattern of separation, initiation, and return: the hero leaves the ordinary world, faces tests, and returns transformed."],
+  ["Mood", "The overall atmosphere or emotional feeling the reader experiences."],
+  ["Tone", "The author's or narrator's attitude toward the subject, characters, or setting."],
+  ["Diction", "The writer's word choice."],
+  ["Syntax", "How words and phrases are arranged into sentences, used for emphasis, parallelism, or pacing."],
+  ["Imagery", "Language that appeals to the five senses."],
+  ["Theme", "The central, underlying message or universal truth of a work, stated as a complete thought."],
+  ["Simile", "A comparison of two unlike things using \"like\" or \"as.\""],
+  ["Metaphor", "A comparison of two unlike things without \"like\" or \"as\"; it becomes an extended metaphor when sustained."],
+  ["Personification", "Giving human characteristics to non-human things."],
+  ["Hyperbole", "Excessive exaggeration not meant to be taken literally."],
+  ["Paradox", "A statement that seems contradictory but reveals a truth."],
+  ["Symbol", "Something or someone that stands for something else."],
+  ["Motif", "A repeated image, sound, word, or symbol within a story."],
+  ["Allusion", "A reference to something outside the story: historical, literary, religious, or political."],
+  ["Foreshadowing", "A hint at something that will happen later, creating suspense."],
+  ["Flashback", "An interruption of the story's chronology to show an earlier event."],
+  ["Juxtaposition", "Placing two things side by side to highlight contrast or similarity."],
+  ["Verbal irony", "A contrast between what is said and what is meant."],
+  ["Situational irony", "A contrast between what happens and what is expected to happen."],
+  ["Dramatic irony", "When the audience knows something a character does not."],
+];
+
+const PASSAGES = [
+  {
+    id: "gothic", label: "Gothic", title: "The House on Larkspur Hill", genre: "Practice passage: Gothic fiction",
+    paras: [
+      "No one in Millbrook had lived in the Ashworth house for forty years, and so no one could explain the light. It appeared each night in the highest window, a thin yellow flame that trembled like a held breath. My grandmother called it nonsense. \"Houses don't remember,\" she said, snapping the curtains shut. Yet she never once let me walk home past the iron gate after dark.",
+      "On the night she fell ill, I went anyway. The gate groaned as I pushed it open, and the dead hydrangeas along the path rattled their dry heads at me. Fog crawled up from the creek and pooled around my ankles. I told myself I only wanted to prove her wrong. I told myself I was not afraid.",
+      "But when I reached the porch, I saw that the front door, which had been nailed shut for decades, stood open an inch. From somewhere deep inside the house came the slow, patient sound of someone sweeping."
+    ],
+    qs: [
+      MC("Why can no one in Millbrook explain the light in the window?", ["The house burned down years ago.", "No one has lived in the house for forty years.", "The light only appears in the daytime.", "The grandmother forbids anyone to talk about it."], 1, "The first sentence connects the mystery to the house sitting empty for forty years."),
+      MC("What does the grandmother DO that contradicts what she SAYS?", ["She calls the light nonsense but never lets the narrator walk past the gate after dark.", "She says the house is safe and then moves away.", "She claims she has never seen the light but describes it in detail.", "She tells the narrator to visit the house and then locks the door."], 0, "Her actions reveal a fear her words deny. This is indirect characterization."),
+      MC("From which point of view is the passage told?", ["Third-person omniscient", "Second person", "First person", "Third-person limited"], 2, "The narrator is a character who uses \"I\" and \"me.\""),
+      MC("\"A thin yellow flame that trembled like a held breath\" is an example of which device?", ["Metaphor", "Simile", "Hyperbole", "Allusion"], 1, "It compares the flame to a held breath using \"like.\""),
+      MC("\"The dead hydrangeas along the path rattled their dry heads at me.\" Which device is this?", ["Personification", "Paradox", "Flashback", "Verbal irony"], 0, "The flowers are given heads and a threatening human action."),
+      MC("The narrator repeats, \"I told myself...\" twice. What does this repetition suggest?", ["The narrator is bored.", "The narrator is trying to convince himself, which suggests he really is afraid.", "The narrator is lying to his grandmother.", "The narrator has forgotten why he came."], 1, "Repeating the reassurance reveals the fear underneath it."),
+      MC("Which word best describes the mood of the passage?", ["Cheerful", "Peaceful", "Dread-filled and suspenseful", "Humorous"], 2, "The groaning gate, crawling fog, and unexplained sounds build dread."),
+      MC("According to archetypal symbolism, what does the fog most likely suggest?", ["Purity and goodness", "Peace and unity", "Confusion and a blurred boundary between illusion and reality", "Hope and renewal"], 2, "Fog and smoke suggest confusion, disorientation, and mystery."),
+      MC("Which feature makes this passage Gothic fiction?", ["Futuristic technology", "A decaying, abandoned house with an unexplained presence", "A real historical event", "Characters who calmly accept magic as ordinary"], 1, "Gothic fiction builds terror and mystery in dark, decaying settings."),
+      MC("The passage ends with the sound of someone sweeping inside a house that has been nailed shut for decades. What is the effect of this ending?", ["It resolves the mystery.", "It creates suspense by withholding who, or what, is inside.", "It makes the story humorous.", "It shows that the grandmother was right all along."], 1, "Ending on an unexplained detail leaves the reader in suspense."),
+    ]
+  },
+  {
+    id: "magical", label: "Magical Realism", title: "Thursdays in San Benito", genre: "Practice passage: magical realism",
+    paras: [
+      "In the town of San Benito, it rained fish every Thursday in October. The children collected them in buckets on the way to school, and Señora Ortega fried the largest ones for anyone who brought her a lemon. Nobody remembered when it had started, and nobody thought to ask.",
+      "What worried the town that year was not the fish but the mayor's new law: every fish that fell inside the town limits now belonged to the government, and anyone caught keeping one would pay a fine of three pesos.",
+      "On the first Thursday, the sky darkened as usual, and the people of San Benito stood in their doorways with empty hands. The fish fell onto the plaza, onto the church roof, onto the mayor's polished shoes. They flopped silver in the gutters until the sun came out and the stray dogs carried them away. By evening the whole town smelled of rot, and the mayor stood alone in the plaza, counting what was left."
+    ],
+    qs: [
+      MC("What happens in San Benito every Thursday in October?", ["A festival is held in the plaza.", "It rains fish.", "The mayor gives a speech.", "The river floods the town."], 1, "The first sentence states the event plainly."),
+      MC("What does the mayor's new law say?", ["Fish may only be eaten on Fridays.", "Every fish that falls inside the town now belongs to the government.", "Children must stay home on Thursdays.", "Señora Ortega must stop cooking."], 1, "Anyone caught keeping a fish must pay a fine of three pesos."),
+      MC("\"Nobody remembered when it had started, and nobody thought to ask.\" Which element of magical realism does this sentence show most clearly?", ["Magic is matter-of-fact.", "A system of magic with clear rules", "A different world", "A scientific explanation"], 0, "The townspeople accept the impossible as part of ordinary life."),
+      MC("Why is this passage magical realism rather than fantasy?", ["It has no magic in it.", "The magic happens in an ordinary, realistic town and is accepted as normal.", "It is set in the future.", "It explains the magic with science."], 1, "Fantasy takes place in a different world with its own system of magic."),
+      MC("What type of conflict does the passage present?", ["Person vs. Nature", "Inner conflict", "Person vs. Society", "Person vs. Entity"], 2, "The townspeople struggle against a law imposed by those in power."),
+      MC("The law meant to give the government the fish leaves the mayor alone with nothing but rotting fish. What kind of irony is this?", ["Dramatic irony", "Verbal irony", "Situational irony", "No irony"], 2, "The result is the opposite of what the law was meant to achieve."),
+      MC("\"They flopped silver in the gutters\" appeals mainly to which sense?", ["Sight", "Taste", "Smell", "Hearing"], 0, "\"Silver\" and \"flopped\" create a visual image, which makes this imagery."),
+      MC("Which statement best expresses a theme of the passage?", ["Fish are an important food source.", "Rain is unpredictable.", "When the powerful try to control a shared gift, they can ruin it for everyone.", "Children should help their parents."], 2, "A theme is a universal statement, not a topic or a plot summary."),
+      MC("How does this passage connect to the history of magical realism from our notes?", ["It celebrates new inventions.", "It criticizes the abuse of government power in an indirect, surprising way.", "It retells a Greek myth.", "It is a true historical account."], 1, "Magical realism authors used the genre to criticize the world indirectly."),
+      MC("Which word best describes the narrator's tone?", ["Terrified", "Matter-of-fact and quietly ironic", "Angry and preachy", "Confused"], 1, "The narrator reports both the fish and the mayor's foolishness calmly, letting the irony speak."),
+    ]
+  },
+  {
+    id: "scifi", label: "Science Fiction", title: "The Notebook", genre: "Practice passage: science fiction",
+    paras: [
+      "By 2091, no one in New Harbor had to remember anything. Memory chips, tucked behind the left ear, stored every birthday, every password, every face. Lena's chip even reminded her to blink when she stared at a screen too long. So when her grandfather handed her a paper notebook on her fifteenth birthday, she turned it over in her hands like an artifact from a museum.",
+      "\"What's it for?\" she asked.",
+      "\"For the things you want to keep,\" he said, \"even when the power goes out.\"",
+      "Lena laughed. The power never went out. The city's grid had not failed in forty years.",
+      "That night, for the first time in her life, the streetlights outside her window flickered, buzzed, and went dark. Her chip fell silent. Lena sat in the blackness and realized she could not remember her grandfather's phone number, or the name of her best friend's sister, or how she had gotten home from school that afternoon. On her desk, the notebook waited, its pages blank."
+    ],
+    qs: [
+      MC("What do the memory chips in New Harbor do?", ["They play music.", "They store people's memories, such as birthdays, passwords, and faces.", "They control the weather.", "They translate languages."], 1, "The chips mean no one has to remember anything."),
+      MC("Why does Lena's grandfather give her a notebook?", ["For her homework", "To keep the things she wants to remember, even when the power goes out", "Because her chip is broken", "To write a letter to her friend"], 1, "He tells her this directly."),
+      MC("Which feature most clearly marks this passage as science fiction?", ["A magic spell", "Imagined technology in a plausible future", "A real historical event", "A talking animal"], 1, "Science fiction explores how imagined technology affects people and society."),
+      MC("This story imagines where our dependence on phones and devices might lead. Which of Neil Gaiman's phrases fits best?", ["\"If only...?\"", "\"Once upon a time...\"", "\"If this goes on...?\"", "\"What really happened?\""], 2, "\"If this goes on\" exaggerates a current trend to see where it leads."),
+      MC("The grandfather mentions the power going out, and that night it does. What device is his comment?", ["Flashback", "Foreshadowing", "Allusion", "Hyperbole"], 1, "His words hint at what will happen later."),
+      MC("Lena laughs because \"the power never went out,\" and then it does. What type of irony is this?", ["Verbal irony", "Situational irony", "Dramatic irony", "Paradox"], 1, "What happens is the opposite of what Lena expects."),
+      MC("Lena turns the notebook over \"like an artifact from a museum.\" What does this simile suggest?", ["The notebook is very valuable.", "Paper notebooks are so outdated in her world that they seem like relics.", "Lena works at a museum.", "The notebook is broken."], 1, "The comparison shows how unfamiliar writing by hand has become."),
+      MC("Which archetype does the grandfather most closely fit?", ["The Trickster", "The Mentor", "The Villain", "The Threshold Guardian"], 1, "He is an older character who offers wisdom and a tool for what lies ahead."),
+      MC("At the end, \"the notebook waited, its pages blank.\" What does the blank notebook most likely symbolize?", ["Lena's homework", "How little of her own memory Lena has kept, and her chance to start keeping it", "The grandfather's anger", "The city's power grid"], 1, "The empty pages mirror her empty memory, but they also offer a new beginning."),
+      MC("Which statement best expresses a theme of the passage?", ["Notebooks are better than computers.", "Depending completely on technology can rob people of their own memories and connections.", "Power outages happen often.", "Grandparents give good gifts."], 1, "A theme is a universal truth the story explores, not a topic or a slogan."),
+    ]
+  }
+];
+
+const ERRORS = [
+  MC("What is wrong with this claim? \"W. W. Jacobs uses foreshadowing to convey fate.\"", ["The literary choice is vague.", "The theme is a one-word topic, not a complete universal statement.", "The author is incorrect.", "The verb is too strong."], 1, "Try: \"...to convey that those who meddle with fate invite suffering.\""),
+  MC("What is wrong with this claim? \"Mary Shelley uses stuff to show that unchecked ambition destroys the very people it should serve.\"", ["The theme is a cliché.", "The literary choice is vague; it should name a specific element or device.", "The theme is a one-word topic.", "The claim is missing the author."], 1, "\"Stuff\" names no device. Try \"ominous imagery\" or \"a horrified tone.\""),
+  MC("What is wrong with this claim? \"Julio Cortázar uses symbolism to convey that the narrator and Irene lose their house.\"", ["The theme is a plot summary, not a universal message.", "Symbolism is not a literary device.", "The author is incorrect.", "Nothing is wrong."], 0, "Losing the house is what happens. A theme says something true about life."),
+  MC("What is wrong with this claim? \"E. M. Forster uses imagery to convey that you should spend less time on screens.\"", ["The literary choice is inaccurate.", "The author is incorrect.", "The theme is a preachy command that also uses second person.", "The claim needs a \"they say\" statement."], 2, "Themes explore complex truths rather than giving commands, and \"you\" breaks the style rules."),
+  MC("Which revision makes this claim stronger? \"Edgar Allan Poe uses repetition to show that guilt consumes the mind.\"", ["Edgar Allan Poe uses stuff to show guilt.", "Poe uses repetition to show the narrator kills the old man.", "Edgar Allan Poe weaponizes frantic repetition to expose how guilt consumes the mind.", "You can see guilt in the story."], 2, "It adds a descriptive adjective and replaces \"uses\" with a stronger verb."),
+  MC("Commentary: \"This quote shows that Odysseus is proud of himself for beating the Cyclops.\" What is the main problem?", ["Weak notice", "Weak name", "Weak explain", "No real commentary; it only restates the evidence"], 3, "It retells the quote without unpacking a specific detail."),
+  MC("Commentary: \"The phrase 'cold as a grave' stands out. It serves as an example of a simile.\" What is the main problem?", ["Weak notice", "Weak name", "Weak explain", "No real commentary"], 2, "It notices and names the simile but never explains what it reveals."),
+  MC("Commentary: \"Something in this line is interesting. This harsh diction reveals the speaker's bitterness toward his brother.\" What is the main problem?", ["Weak notice", "Weak name", "Weak explain", "No real commentary"], 0, "\"Something in this line\" points to no specific word or detail."),
+  MC("Commentary: \"The narrator never says what is inside the house. By doing this, the author forces the reader to imagine the worst.\" What is the main problem?", ["Weak notice", "Weak name", "Weak explain", "No real commentary"], 1, "It notices and explains, but never names the technique (withheld information or suspense)."),
+  MC("Which quotation is integrated correctly?", ["The narrator insists that, “The disease had sharpened my senses” (Poe 1).", "The narrator insists that “[t]he disease had sharpened my senses” (Poe 1).", "The narrator insists that “The disease had sharpened my senses.” (Poe 1)", "The narrator insists that “. . . the disease had sharpened my senses . . .” (Poe 1)."], 1, "After \"that\": no comma, a lowercase first word in brackets, and the period after the citation."),
+  MC("Which quotation is integrated correctly?", ["The creature warns “Beware; for I am fearless, and therefore powerful” (Shelley).", "The creature warns, “beware; for I am fearless, and therefore powerful” (Shelley).", "The creature warns, “Beware; for I am fearless, and therefore powerful” (Shelley).", "The creature warns that, “Beware; for I am fearless, and therefore powerful” (Shelley)."], 2, "After a speech verb: a comma and a capitalized first word."),
+  MC("Which quotation is integrated correctly?", ["Juliet asks “O Romeo, Romeo! wherefore art thou Romeo” (Shakespeare 2.2.33)?", "Juliet asks, “O Romeo, Romeo! wherefore art thou Romeo?” (Shakespeare 2.2.33).", "Juliet asks, “O Romeo, Romeo! wherefore art thou Romeo”? (Shakespeare 2.2.33)", "Juliet asks, “O Romeo, Romeo! wherefore art thou Romeo?”. (Shakespeare 2.2.33)"], 1, "A question mark that belongs to the original stays inside; the period follows the citation."),
+  MC("Which quotation uses the ellipsis correctly?", ["Ishmael explains that “. . . having little or no money in my purse . . .” (Melville).", "Ishmael explains that “having little or no money in my purse...I thought I would sail about a little” (Melville).", "Ishmael explains that “having little or no money in my purse . . . I thought I would sail about a little” (Melville).", "Ishmael explains . . . that he had no money (Melville)."], 2, "Three spaced periods, only in the middle of a quotation."),
+  MC("Which sentence is punctuated correctly?", ["Therefore Montresor leads Fortunato deeper into the vaults.", "Therefore, Montresor leads Fortunato deeper into the vaults.", "Therefore; Montresor leads Fortunato deeper into the vaults.", "So, Montresor leads Fortunato deeper into the vaults."], 1, "A transition that opens a sentence takes a comma, and no sentence begins with \"So.\""),
+  MC("Which sentence is punctuated correctly?", ["Vashti trusts the Machine, however, Kuno doubts it.", "Vashti trusts the Machine however Kuno doubts it.", "Vashti trusts the Machine; however Kuno, doubts it.", "Vashti trusts the Machine; however, Kuno doubts it."], 3, "Two complete sentences joined by a transition need a semicolon before it and a comma after it."),
+  MC("Which sentence is punctuated correctly?", ["Arthur Dent, for example, escapes Earth just before it is destroyed.", "Arthur Dent for example, escapes Earth just before it is destroyed.", "Arthur Dent, for example escapes Earth just before it is destroyed.", "Arthur Dent; for example, escapes Earth just before it is destroyed."], 0, "A transition in the middle of a sentence needs commas on both sides."),
+  MC("Which sentence follows the style rules?", ["In the story, the narrator was terrified.", "The narrator is very scared, and this shows a lot.", "The narrator's frantic questions expose his growing terror.", "You can tell the narrator is scared."], 2, "Present tense, precise word choice, no \"in the story,\" no \"this\" without a noun, and no second person."),
+  FIX("Find and fix the TWO errors: But the narrator admits that, “I loved the old man” (Poe 1).", "However, the narrator admits that “I loved the old man” (Poe 1). (Do not begin with \"But\"; no comma after \"that.\" \"I\" stays capitalized.)"),
+  FIX("Find and fix the TWO errors: Victor works for nearly two years, nevertheless he is horrified by “the wretch—the miserable monster whom I had created.” (Shelley)", "Victor works for nearly two years; nevertheless, he is horrified by “the wretch—the miserable monster whom I had created” (Shelley). (Semicolon before and comma after \"nevertheless\"; period after the citation.)"),
+  FIX("Find and fix the TWO errors: Ishmael opens the novel simply, “Call me Ishmael.” (Melville)", "Ishmael opens the novel simply: “Call me Ishmael” (Melville). (A colon after a complete sentence; the period goes after the citation.)"),
+  FIX("Find and fix the TWO errors: The story, in contrast opens with a blunt fact “One dollar and eighty-seven cents” (Henry).", "The story, in contrast, opens with a blunt fact: “One dollar and eighty-seven cents” (Henry). (Commas on both sides of \"in contrast\"; a colon after a complete sentence.)"),
+];
+
+const SECTIONS = [
+  { id: "genres", tab: "Literary Genres", title: "Literary Genres: Multiple Choice", desc: "Myths and Campbell's four functions, archetypes, magical realism, science fiction, and historical and realistic fiction. Choose an answer to see whether you are right.", kind: "quiz", items: GENRES },
+  { id: "terms", tab: "Literary Terms", title: "Literary Terms: Flashcards", desc: "Every term from the Literary Elements and Devices glossary. Choose whether the term or the definition shows first, then click the card to flip it.", kind: "cards" },
+  { id: "reading", tab: "Reading and Application", title: "Reading and Application", desc: "Read a short practice passage, then answer comprehension and literary analysis questions about it, just like the reading section of the midterm.", kind: "reading" },
+  { id: "errors", tab: "Spot the Error", title: "Spot the Error", desc: "Analytical claims, Notice-Name-Explain commentary, quote integration, transitions, and style rules. The last few ask you to fix the sentence yourself.", kind: "quiz", items: ERRORS },
+];
+
+/* ---------- State ---------- */
+const LETTERS = ["A", "B", "C", "D"];
+const state = {
+  section: 0,
+  quiz: {},          // key -> { pos, answers: {idx: choice}, revealed: {idx: true} }
+  cards: { pos: 0, order: TERMS.map((_, i) => i), flipped: false, termFirst: true },
+  passage: 0,
+};
+try { const s = localStorage.getItem("eng9-review-termFirst"); if (s !== null) state.cards.termFirst = s === "1"; } catch (e) {}
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+function quizState(key) { if (!state.quiz[key]) state.quiz[key] = { pos: 0, answers: {}, revealed: {} }; return state.quiz[key]; }
+
+/* ---------- Tabs ---------- */
+SECTIONS.forEach((s, i) => {
+  const b = document.createElement("button");
+  b.className = "tab"; b.type = "button"; b.id = "tab-" + s.id; b.setAttribute("role", "tab");
+  b.innerHTML = `<span class="num">${i + 1}</span><span>${s.tab}</span>`;
+  b.addEventListener("click", () => { location.hash = s.id; });
+  $("tabs").appendChild(b);
+});
+
+/* ---------- Quiz renderer ---------- */
+function renderQuiz(container, items, key) {
+  const qs = quizState(key);
+  const item = items[qs.pos];
+  const answered = Object.keys(qs.answers).length;
+  const correct = Object.entries(qs.answers).filter(([i, c]) => items[i].type === "mc" && items[i].a === c).length;
+  const mcTotal = items.filter((x) => x.type === "mc").length;
+  let body = "";
+  if (item.type === "mc") {
+    const chosen = qs.answers[qs.pos];
+    const done = chosen !== undefined;
+    const btns = item.o.map((opt, k) => {
+      let cls = "choice";
+      if (done && k === item.a) cls += " correct";
+      if (done && k === chosen && k !== item.a) cls += " wrong";
+      return `<button type="button" class="${cls}" data-k="${k}" ${done ? "disabled" : ""}><span class="letter">${LETTERS[k]}.</span><span>${esc(opt)}</span></button>`;
+    }).join("");
+    let fb = "";
+    if (done) {
+      const ok = chosen === item.a;
+      fb = `<div class="feedback ${ok ? "good" : "bad"}" role="status"><strong>${ok ? "Correct." : "Not quite. The answer is " + LETTERS[item.a] + "."}</strong>${esc(item.why)}</div>`;
+    }
+    body = `<div class="kind">Multiple choice</div><p class="q">${esc(item.q)}</p><div class="choices">${btns}</div>${fb}`;
+  } else {
+    const shown = qs.revealed[qs.pos];
+    body = `<div class="kind">Fix the sentence</div><p class="q">${esc(item.q)}</p>
+      <label class="small" for="fix-${key}">Type your corrected sentence:</label>
+      <textarea id="fix-${key}" placeholder="Rewrite the sentence correctly."></textarea>
+      <div class="controls" style="margin-top:12px;justify-content:flex-start"><button type="button" class="btn" id="reveal">${shown ? "Hide answer" : "Show answer"}</button></div>
+      ${shown ? `<div class="feedback good" role="status"><strong>Corrected sentence</strong>${esc(item.a)}</div>` : ""}`;
+  }
+  container.innerHTML = `
+    <div class="toolbar">
+      <span class="progress">Question ${qs.pos + 1} of ${items.length}</span>
+      <span class="progress">Score: <span class="score">${correct} of ${mcTotal}</span> multiple choice correct</span>
+    </div>
+    <div class="box">${body}</div>
+    <div class="controls">
+      <button type="button" class="btn" id="qprev" ${qs.pos === 0 ? "disabled" : ""}>Previous</button>
+      <button type="button" class="btn primary" id="qnext" ${qs.pos === items.length - 1 ? "disabled" : ""}>Next question</button>
+      <button type="button" class="btn" id="qreset">Start over</button>
+    </div>`;
+  container.querySelectorAll(".choice").forEach((b) => b.addEventListener("click", () => { qs.answers[qs.pos] = Number(b.dataset.k); renderQuiz(container, items, key); }));
+  const rv = container.querySelector("#reveal");
+  if (rv) rv.addEventListener("click", () => { const t = container.querySelector("textarea").value; qs.revealed[qs.pos] = !qs.revealed[qs.pos]; renderQuiz(container, items, key); container.querySelector("textarea").value = t; });
+  $("qprev").addEventListener("click", () => { qs.pos--; renderQuiz(container, items, key); });
+  $("qnext").addEventListener("click", () => { qs.pos++; renderQuiz(container, items, key); });
+  $("qreset").addEventListener("click", () => { state.quiz[key] = { pos: 0, answers: {}, revealed: {} }; renderQuiz(container, items, key); });
+}
+
+/* ---------- Flashcards ---------- */
+function renderCards(container) {
+  const c = state.cards;
+  const [term, def] = TERMS[c.order[c.pos]];
+  const termHtml = `<div class="main big">${esc(term)}</div>`;
+  const defHtml = `<div class="main">${esc(def)}</div>`;
+  const front = c.termFirst ? `<div class="kind">Term</div>${termHtml}` : `<div class="kind">Definition</div>${defHtml}`;
+  const back = c.termFirst ? `<div class="kind">Definition</div>${defHtml}` : `<div class="kind">Term</div>${termHtml}`;
+  container.innerHTML = `
+    <div class="toolbar">
+      <div><span class="seg-label" id="order-label">Show first:</span>
+        <span class="seg" role="group" aria-labelledby="order-label">
+          <button type="button" id="ord-term" aria-pressed="${c.termFirst}">Term</button>
+          <button type="button" id="ord-def" aria-pressed="${!c.termFirst}">Definition</button>
+        </span></div>
+      <span class="progress">Card ${c.pos + 1} of ${TERMS.length}</span>
+    </div>
+    <div class="stage"><div class="card${c.flipped ? " flipped" : ""}" id="card" tabindex="0" role="button" aria-label="Flashcard. Click or press Space to flip.">
+      <div class="face front">${front}<div class="hint">Click to flip</div></div>
+      <div class="face back">${back}<div class="hint">Click to flip back</div></div>
+    </div></div>
+    <div class="controls">
+      <button class="btn" type="button" id="cprev" ${c.pos === 0 ? "disabled" : ""}>Previous</button>
+      <button class="btn primary" type="button" id="cflip">Flip card</button>
+      <button class="btn" type="button" id="cnext" ${c.pos === TERMS.length - 1 ? "disabled" : ""}>Next</button>
+      <button class="btn" type="button" id="cshuffle">Shuffle</button>
+      <button class="btn" type="button" id="crestart">Start over</button>
+    </div>
+    <p class="keys">Keyboard: Space flips the card. Left and right arrows move between cards.</p>`;
+  const flip = () => { c.flipped = !c.flipped; $("card").classList.toggle("flipped", c.flipped); };
+  const go = (d) => { const p = c.pos + d; if (p < 0 || p >= TERMS.length) return; c.pos = p; c.flipped = false; renderCards(container); };
+  $("card").addEventListener("click", flip);
+  $("card").addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); flip(); } });
+  $("cflip").addEventListener("click", flip);
+  $("cprev").addEventListener("click", () => go(-1));
+  $("cnext").addEventListener("click", () => go(1));
+  $("cshuffle").addEventListener("click", () => { const a = c.order; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } c.pos = 0; c.flipped = false; renderCards(container); });
+  $("crestart").addEventListener("click", () => { c.order = TERMS.map((_, i) => i); c.pos = 0; c.flipped = false; renderCards(container); });
+  const setOrder = (v) => { c.termFirst = v; c.flipped = false; try { localStorage.setItem("eng9-review-termFirst", v ? "1" : "0"); } catch (e) {} renderCards(container); };
+  $("ord-term").addEventListener("click", () => setOrder(true));
+  $("ord-def").addEventListener("click", () => setOrder(false));
+  cardKeys = { flip, go };
+}
+let cardKeys = null;
+document.addEventListener("keydown", (e) => {
+  if (SECTIONS[state.section].kind !== "cards" || !cardKeys) return;
+  const tag = e.target.tagName;
+  if (tag === "TEXTAREA" || (tag === "BUTTON" && e.key === " ")) return;
+  if (e.key === " ") { e.preventDefault(); cardKeys.flip(); }
+  else if (e.key === "ArrowRight") cardKeys.go(1);
+  else if (e.key === "ArrowLeft") cardKeys.go(-1);
+});
+
+/* ---------- Reading ---------- */
+function renderReading(container) {
+  const p = PASSAGES[state.passage];
+  const subtabs = PASSAGES.map((x, i) => `<button type="button" class="subtab" data-i="${i}" aria-selected="${i === state.passage}">Passage ${i + 1}: ${x.label}</button>`).join("");
+  const paras = p.paras.map((t, i) => `<p><span class="pnum">${i + 1}</span>${esc(t)}</p>`).join("");
+  container.innerHTML = `
+    <div class="subtabs" role="tablist" aria-label="Practice passages">${subtabs}</div>
+    <div class="reading">
+      <article class="passage" aria-label="Practice passage">
+        <h3>${esc(p.title)}</h3>
+        <p class="genre">${esc(p.genre)}</p>
+        ${paras}
+      </article>
+      <div class="panel" id="rq"></div>
+    </div>`;
+  container.querySelectorAll(".subtab").forEach((b) => b.addEventListener("click", () => { state.passage = Number(b.dataset.i); renderReading(container); }));
+  renderQuiz($("rq"), p.qs, "reading-" + p.id);
+}
+
+/* ---------- Router ---------- */
+function render() {
+  const s = SECTIONS[state.section];
+  SECTIONS.forEach((x, i) => $("tab-" + x.id).setAttribute("aria-selected", i === state.section ? "true" : "false"));
+  $("section-title").textContent = s.title;
+  $("section-desc").textContent = s.desc;
+  const v = $("view");
+  if (s.kind === "quiz") renderQuiz(v, s.items, s.id);
+  else if (s.kind === "cards") renderCards(v);
+  else renderReading(v);
+}
+function route() {
+  const id = location.hash.replace("#", "");
+  const i = SECTIONS.findIndex((s) => s.id === id);
+  state.section = i >= 0 ? i : 0;
+  render();
+}
+window.addEventListener("hashchange", route);
+route();
+</script>
+</body>
+</html>
