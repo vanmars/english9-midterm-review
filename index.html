@@ -109,6 +109,24 @@ label.small { font-size: 0.9rem; color: var(--muted); display: block; margin-bot
 .passage p { font-family: var(--font-display); font-size: 1.05rem; line-height: 1.65; margin: 0 0 12px; max-width: 65ch; }
 .passage .pnum { font-family: var(--font-body); font-size: 0.75rem; font-weight: 700; color: var(--muted); margin-right: 6px; }
 .subtabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.lead { margin: 0 0 12px; color: var(--muted); font-size: 0.98rem; max-width: 70ch; }
+.q.sentence { font-family: var(--font-display); background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+.q u { text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.subtab .count { font-weight: 700; opacity: 0.7; font-variant-numeric: tabular-nums; }
+.match { display: grid; gap: 20px; grid-template-columns: 1fr; }
+@media (min-width: 800px) { .match { grid-template-columns: 0.8fr 1.2fr; } }
+.match ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.mterms li { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.mterms label { display: flex; align-items: center; gap: 8px; }
+.tnum { font-weight: 700; color: var(--muted); min-width: 1.8em; font-variant-numeric: tabular-nums; }
+.tname { font-weight: 600; }
+select { font: inherit; font-size: 1rem; padding: 4px 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); }
+select:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.mdefs li { padding: 8px 12px; background: var(--paper); border-radius: 8px; font-size: 0.98rem; }
+.dl { font-weight: 700; margin-right: 4px; }
+.mark { font-size: 0.85rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; }
+.mark.good { color: var(--good); background: var(--good-bg); }
+.mark.bad { color: var(--bad); background: var(--bad-bg); }
 .keys { text-align: center; font-size: 0.85rem; color: var(--muted); margin: 0; }
 @media (prefers-reduced-motion: reduce) { .card { transition: none; } }
 @media (max-width: 480px) { h1 { font-size: 1.6rem; } .box, .face { padding: 18px; } .q { font-size: 1.1rem; } .face .main.big { font-size: 1.6rem; } }
@@ -118,7 +136,7 @@ label.small { font-size: 0.9rem; color: var(--muted); display: block; margin-bot
 <div class="wrap">
   <header>
     <h1>English 9 Midterm Review</h1>
-    <p class="sub">Practice questions in the same style as the midterm. Work through each section, check your answer, and read the explanation before moving on.</p>
+    <p class="sub">Practice for Parts 1 to 4 of the midterm, in the same question styles as the exam. Check each answer and read the explanation before moving on. (The essays in Parts 5 and 6 are not included.)</p>
   </header>
   <nav id="tabs" role="tablist" aria-label="Review sections"></nav>
   <section class="section-head">
@@ -131,7 +149,6 @@ label.small { font-size: 0.9rem; color: var(--muted); display: block; margin-bot
 <script>
 /* ---------- Content ---------- */
 const MC = (q, o, a, why) => ({ type: "mc", q, o, a, why });
-const FIX = (q, a) => ({ type: "fix", q, a });
 
 const GENRES = [
   MC("According to Joseph Campbell, which function of myth inspires awe and gratitude toward the mystery of the universe?", ["Sociological", "Mystical (metaphysical)", "Psychological (pedagogical)", "Cosmological"], 1, "The mystical function awakens awe and gratitude toward the mystery dimension of the universe."),
@@ -159,6 +176,12 @@ const GENRES = [
   MC("In historical fiction, which detail may the writer imagine rather than research?", ["The date of a major battle", "The food people ate in that era", "A character's private thoughts", "Which real people lived in the town"], 2, "Thoughts, feelings, exact conversations, and small scenes between known events can be imagined."),
   MC("What is the Golden Rule of historical fiction?", ["Every character must be a real person.", "Imagined details must be plausible and must never contradict the historical record.", "The story must end happily.", "Only primary sources may be used."], 1, "Imagination can fill the silences, but never against the facts."),
   MC("A historical novel set in 1850 shows its characters cooking over a fire, writing with quill pens, and paying in coins of the era. Which element of the genre is this?", ["Authentic details", "Lasting theme", "Layered conflict", "Realistic fiction"], 0, "Authentic details include the food, clothing, tools, money, and speech of the era."),
+  MC("Which setting detail would a Gothic writer most likely use to build dread?", ["A sunny farmers' market on a Saturday morning", "A candle sputtering out in a damp, echoing underground vault", "A spaceship's gleaming control room", "A crowded school cafeteria"], 1, "Gothic fiction favors dark, decaying, isolated places that make readers uneasy."),
+  MC("Which pair of stories from this term are both Gothic fiction?", ["\"The Tell-Tale Heart\" and \"The Cask of Amontillado\"", "\"A Very Old Man with Enormous Wings\" and \"House Taken Over\"", "The Hitchhiker's Guide to the Galaxy and 20,000 Leagues Under the Sea", "The Odyssey and Number the Stars"], 0, "Both Poe stories use madness, murder, dark settings, and dread."),
+  MC("Mary Shelley's Frankenstein is a Gothic novel that is also often called one of the first novels of which genre?", ["Magical realism", "Historical fiction", "Science fiction", "Realistic fiction"], 2, "Victor uses science, not magic, to create life, so the novel blends Gothic horror with science fiction."),
+  MC("Why do Gothic writers often withhold information, such as what is behind a locked door?", ["To make the story easier to follow", "To build suspense and let readers imagine the worst", "To give accurate historical facts", "To show that magic is ordinary"], 1, "What readers cannot see is often more frightening than what they can."),
+  MC("The narrator of \"The Tell-Tale Heart\" insists he is not mad while describing a murder. Which kind of narrator, common in Gothic fiction, is this?", ["An omniscient narrator", "An unreliable narrator whose mind may be unraveling", "A second-person narrator", "A narrator who is not a character"], 1, "Gothic fiction often explores madness from the inside, so readers cannot fully trust what the narrator says."),
+  MC("Both Gothic fiction and magical realism include strange events. What is the key difference?", ["Gothic fiction treats the strange as frightening; magical realism treats it as an ordinary part of life.", "Gothic fiction is always set in the future.", "Magical realism is always frightening.", "There is no difference."], 0, "The characters' reaction to the strange event is the clue: dread in Gothic fiction, calm acceptance in magical realism."),
 ];
 
 const TERMS = [
@@ -274,50 +297,87 @@ const PASSAGES = [
   }
 ];
 
+/* Spot the Error: every item has exactly ONE error. The correct option is listed first and choices are shuffled on screen (except commentary, which keeps a fixed order). */
+const SE = (cat, lead, q, o, why, fixed) => ({ type: "mc", cat, lead, q, o, a: 0, why, fixed: !!fixed });
+const CLAIM_LEAD = "This analytical claim follows the formula [Author] [verb] [descriptive adjective + literary choice] to [convey] [theme]. It has ONE error, and it is underlined. What is the error?";
+const TRANS_LEAD = "This sentence has ONE transition punctuation error. Choose the correct revision.";
+const QUOTE_LEAD = "This sentence has ONE quote integration error. What is the error?";
+const COMM_LEAD = "Strong commentary NOTICES one small detail, NAMES it with a literary term, and EXPLAINS what it reveals. What is wrong with this commentary?";
+const COMM = ["Weak notice: it does not point to a specific word or detail.", "Weak name: it never labels the technique with a literary term.", "Weak explain: it never explains what the detail reveals.", "No real commentary: it only restates the evidence."];
+const comm = (q, right, why) => ({ ...SE("commentary", COMM_LEAD, q, COMM, why, true), a: right });
+
 const ERRORS = [
-  MC("What is wrong with this claim? \"W. W. Jacobs uses foreshadowing to convey fate.\"", ["The literary choice is vague.", "The theme is a one-word topic, not a complete universal statement.", "The author is incorrect.", "The verb is too strong."], 1, "Try: \"...to convey that those who meddle with fate invite suffering.\""),
-  MC("What is wrong with this claim? \"Mary Shelley uses stuff to show that unchecked ambition destroys the very people it should serve.\"", ["The theme is a cliché.", "The literary choice is vague; it should name a specific element or device.", "The theme is a one-word topic.", "The claim is missing the author."], 1, "\"Stuff\" names no device. Try \"ominous imagery\" or \"a horrified tone.\""),
-  MC("What is wrong with this claim? \"Julio Cortázar uses symbolism to convey that the narrator and Irene lose their house.\"", ["The theme is a plot summary, not a universal message.", "Symbolism is not a literary device.", "The author is incorrect.", "Nothing is wrong."], 0, "Losing the house is what happens. A theme says something true about life."),
-  MC("What is wrong with this claim? \"E. M. Forster uses imagery to convey that you should spend less time on screens.\"", ["The literary choice is inaccurate.", "The author is incorrect.", "The theme is a preachy command that also uses second person.", "The claim needs a \"they say\" statement."], 2, "Themes explore complex truths rather than giving commands, and \"you\" breaks the style rules."),
-  MC("Which revision makes this claim stronger? \"Edgar Allan Poe uses repetition to show that guilt consumes the mind.\"", ["Edgar Allan Poe uses stuff to show guilt.", "Poe uses repetition to show the narrator kills the old man.", "Edgar Allan Poe weaponizes frantic repetition to expose how guilt consumes the mind.", "You can see guilt in the story."], 2, "It adds a descriptive adjective and replaces \"uses\" with a stronger verb."),
-  MC("Commentary: \"This quote shows that Odysseus is proud of himself for beating the Cyclops.\" What is the main problem?", ["Weak notice", "Weak name", "Weak explain", "No real commentary; it only restates the evidence"], 3, "It retells the quote without unpacking a specific detail."),
-  MC("Commentary: \"The phrase 'cold as a grave' stands out. It serves as an example of a simile.\" What is the main problem?", ["Weak notice", "Weak name", "Weak explain", "No real commentary"], 2, "It notices and names the simile but never explains what it reveals."),
-  MC("Commentary: \"Something in this line is interesting. This harsh diction reveals the speaker's bitterness toward his brother.\" What is the main problem?", ["Weak notice", "Weak name", "Weak explain", "No real commentary"], 0, "\"Something in this line\" points to no specific word or detail."),
-  MC("Commentary: \"The narrator never says what is inside the house. By doing this, the author forces the reader to imagine the worst.\" What is the main problem?", ["Weak notice", "Weak name", "Weak explain", "No real commentary"], 1, "It notices and explains, but never names the technique (withheld information or suspense)."),
-  MC("Which quotation is integrated correctly?", ["The narrator insists that, “The disease had sharpened my senses” (Poe 1).", "The narrator insists that “[t]he disease had sharpened my senses” (Poe 1).", "The narrator insists that “The disease had sharpened my senses.” (Poe 1)", "The narrator insists that “. . . the disease had sharpened my senses . . .” (Poe 1)."], 1, "After \"that\": no comma, a lowercase first word in brackets, and the period after the citation."),
-  MC("Which quotation is integrated correctly?", ["The creature warns “Beware; for I am fearless, and therefore powerful” (Shelley).", "The creature warns, “beware; for I am fearless, and therefore powerful” (Shelley).", "The creature warns, “Beware; for I am fearless, and therefore powerful” (Shelley).", "The creature warns that, “Beware; for I am fearless, and therefore powerful” (Shelley)."], 2, "After a speech verb: a comma and a capitalized first word."),
-  MC("Which quotation is integrated correctly?", ["Juliet asks “O Romeo, Romeo! wherefore art thou Romeo” (Shakespeare 2.2.33)?", "Juliet asks, “O Romeo, Romeo! wherefore art thou Romeo?” (Shakespeare 2.2.33).", "Juliet asks, “O Romeo, Romeo! wherefore art thou Romeo”? (Shakespeare 2.2.33)", "Juliet asks, “O Romeo, Romeo! wherefore art thou Romeo?”. (Shakespeare 2.2.33)"], 1, "A question mark that belongs to the original stays inside; the period follows the citation."),
-  MC("Which quotation uses the ellipsis correctly?", ["Ishmael explains that “. . . having little or no money in my purse . . .” (Melville).", "Ishmael explains that “having little or no money in my purse...I thought I would sail about a little” (Melville).", "Ishmael explains that “having little or no money in my purse . . . I thought I would sail about a little” (Melville).", "Ishmael explains . . . that he had no money (Melville)."], 2, "Three spaced periods, only in the middle of a quotation."),
-  MC("Which sentence is punctuated correctly?", ["Therefore Montresor leads Fortunato deeper into the vaults.", "Therefore, Montresor leads Fortunato deeper into the vaults.", "Therefore; Montresor leads Fortunato deeper into the vaults.", "So, Montresor leads Fortunato deeper into the vaults."], 1, "A transition that opens a sentence takes a comma, and no sentence begins with \"So.\""),
-  MC("Which sentence is punctuated correctly?", ["Vashti trusts the Machine, however, Kuno doubts it.", "Vashti trusts the Machine however Kuno doubts it.", "Vashti trusts the Machine; however Kuno, doubts it.", "Vashti trusts the Machine; however, Kuno doubts it."], 3, "Two complete sentences joined by a transition need a semicolon before it and a comma after it."),
-  MC("Which sentence is punctuated correctly?", ["Arthur Dent, for example, escapes Earth just before it is destroyed.", "Arthur Dent for example, escapes Earth just before it is destroyed.", "Arthur Dent, for example escapes Earth just before it is destroyed.", "Arthur Dent; for example, escapes Earth just before it is destroyed."], 0, "A transition in the middle of a sentence needs commas on both sides."),
-  MC("Which sentence follows the style rules?", ["In the story, the narrator was terrified.", "The narrator is very scared, and this shows a lot.", "The narrator's frantic questions expose his growing terror.", "You can tell the narrator is scared."], 2, "Present tense, precise word choice, no \"in the story,\" no \"this\" without a noun, and no second person."),
-  FIX("Find and fix the TWO errors: But the narrator admits that, “I loved the old man” (Poe 1).", "However, the narrator admits that “I loved the old man” (Poe 1). (Do not begin with \"But\"; no comma after \"that.\" \"I\" stays capitalized.)"),
-  FIX("Find and fix the TWO errors: Victor works for nearly two years, nevertheless he is horrified by “the wretch—the miserable monster whom I had created.” (Shelley)", "Victor works for nearly two years; nevertheless, he is horrified by “the wretch—the miserable monster whom I had created” (Shelley). (Semicolon before and comma after \"nevertheless\"; period after the citation.)"),
-  FIX("Find and fix the TWO errors: Ishmael opens the novel simply, “Call me Ishmael.” (Melville)", "Ishmael opens the novel simply: “Call me Ishmael” (Melville). (A colon after a complete sentence; the period goes after the citation.)"),
-  FIX("Find and fix the TWO errors: The story, in contrast opens with a blunt fact “One dollar and eighty-seven cents” (Henry).", "The story, in contrast, opens with a blunt fact: “One dollar and eighty-seven cents” (Henry). (Commas on both sides of \"in contrast\"; a colon after a complete sentence.)"),
+  // Claims
+  SE("claim", CLAIM_LEAD, "Homer crafts sweeping epic similes to convey __pride__.", ["The theme is a one-word topic, not a complete statement.", "The literary choice is inaccurate.", "The verb is weak.", "The theme is a cliché."], "\"Pride\" is a topic. Try: \"...to convey that pride blinds even the cleverest leaders to danger.\""),
+  SE("claim", CLAIM_LEAD, "Mary Shelley __uses__ bleak, isolating imagery to expose how rejection can turn compassion into cruelty.", ["The verb is weak; replace \"uses\" with a stronger verb.", "The theme is a plot summary.", "The literary choice needs a descriptive adjective.", "The theme is a one-word topic."], "Supercharge the verb: crafts, weaponizes, employs, exposes."),
+  SE("claim", CLAIM_LEAD, "Edgar Allan Poe weaponizes ominous imagery to reveal __that Montresor walls Fortunato up in the catacombs__.", ["The theme restates a plot event instead of a universal message.", "The verb is weak.", "The literary choice is vague.", "The theme is a cliché."], "That is what happens. Try: \"...to reveal that revenge consumes the avenger as surely as the victim.\""),
+  SE("claim", CLAIM_LEAD, "W. W. Jacobs employs eerie foreshadowing to warn that __money can't buy happiness__.", ["The theme is a cliché.", "The literary choice is inaccurate.", "The verb is weak.", "The theme names a character."], "Clichés are worn-out sayings. Try: \"...to warn that those who try to bend fate to their wishes invite sorrow.\""),
+  SE("claim", CLAIM_LEAD, "Julio Cortázar crafts __things in the story__ to suggest that people who refuse to face loss slowly surrender everything they love.", ["The literary choice is vague; it should name a specific device.", "The theme is a one-word topic.", "The verb is weak.", "The theme is a plot summary."], "Name the device: \"unsettling, unexplained sounds\" or \"a calm, detached tone.\""),
+  SE("claim", CLAIM_LEAD, "Douglas Adams employs __first-person narration__ to satirize humanity's belief that it is the center of the universe.", ["The literary choice is inaccurate; the novel is told in third person.", "The theme is a cliché.", "The verb is weak.", "The theme is a one-word topic."], "Check the facts: the narrator of The Hitchhiker's Guide is not a character, so it is third person."),
+  SE("claim", CLAIM_LEAD, "Jules Verne crafts __imagery__ to celebrate how curiosity drives people to explore the unknown.", ["The literary choice needs a descriptive adjective.", "The theme is a plot summary.", "The verb is weak.", "The literary choice is inaccurate."], "Add an adjective: \"dazzling, detailed imagery.\""),
+  SE("claim", CLAIM_LEAD, "E. M. Forster crafts haunting, mechanical imagery to warn that __you should put down your phone__.", ["The theme is a preachy command that speaks to the reader as \"you.\"", "The literary choice is vague.", "The verb is weak.", "The theme is a one-word topic."], "Themes explore truths rather than give orders. Try: \"...to warn that people who let machines think for them lose their humanity.\""),
+  // Transitions
+  SE("transition", TRANS_LEAD, "Consequently Odysseus blinds the Cyclops and escapes from the cave.", ["Consequently, Odysseus blinds the Cyclops and escapes from the cave.", "Consequently; Odysseus blinds the Cyclops and escapes from the cave.", "So, Odysseus blinds the Cyclops and escapes from the cave.", "Consequently Odysseus, blinds the Cyclops and escapes from the cave."], "A transition that opens a sentence is followed by a comma."),
+  SE("transition", TRANS_LEAD, "The creature longs for companionship, however, every human he meets rejects him.", ["The creature longs for companionship; however, every human he meets rejects him.", "The creature longs for companionship however, every human he meets rejects him.", "The creature longs for companionship, however every human he meets rejects him.", "The creature longs for companionship. But every human he meets rejects him."], "Two complete sentences joined by a transition: semicolon before, comma after."),
+  SE("transition", TRANS_LEAD, "Montresor, for instance smiles warmly at the man he plans to kill.", ["Montresor, for instance, smiles warmly at the man he plans to kill.", "Montresor for instance smiles warmly at the man he plans to kill.", "Montresor; for instance, smiles warmly at the man he plans to kill.", "Montresor for instance, smiles warmly at the man he plans to kill."], "A transition in the middle of a sentence needs commas on BOTH sides."),
+  SE("transition", TRANS_LEAD, "And Mrs. White rushes downstairs to open the door.", ["Then, Mrs. White rushes downstairs to open the door.", "And, Mrs. White rushes downstairs to open the door.", "And; Mrs. White rushes downstairs to open the door.", "But Mrs. White rushes downstairs to open the door."], "Never begin a sentence with a coordinating conjunction (and, but, so). Use a transition word instead."),
+  SE("transition", TRANS_LEAD, "Arthur Dent loses his home; moreover he loses his entire planet.", ["Arthur Dent loses his home; moreover, he loses his entire planet.", "Arthur Dent loses his home, moreover he loses his entire planet.", "Arthur Dent loses his home moreover, he loses his entire planet.", "Arthur Dent loses his home; moreover; he loses his entire planet."], "The semicolon is right; the comma after \"moreover\" is missing."),
+  SE("transition", TRANS_LEAD, "In addition the Nautilus runs entirely on electricity.", ["In addition, the Nautilus runs entirely on electricity.", "In addition; the Nautilus runs entirely on electricity.", "In addition the Nautilus, runs entirely on electricity.", "So, the Nautilus runs entirely on electricity."], "A transition that opens a sentence is followed by a comma."),
+  SE("transition", TRANS_LEAD, "Victor; however, refuses to build a second creature.", ["Victor, however, refuses to build a second creature.", "Victor however refuses to build a second creature.", "Victor; however; refuses to build a second creature.", "Victor, however; refuses to build a second creature."], "A semicolon cannot set off a mid-sentence transition. Use commas on both sides."),
+  SE("transition", TRANS_LEAD, "The siblings lose half of their house. But they never investigate the noises.", ["The siblings lose half of their house. However, they never investigate the noises.", "The siblings lose half of their house. But, they never investigate the noises.", "The siblings lose half of their house. However they never investigate the noises.", "The siblings lose half of their house, however, they never investigate the noises."], "Replace the coordinating conjunction with a transition, and put a comma after it."),
+  // Quotations
+  SE("quote", QUOTE_LEAD, "The sergeant-major explains that, “those who interfered with it did so to their sorrow” (Jacobs).", ["No comma should come before a quotation that follows \"that.\"", "A comma is needed after a speech verb before the quotation.", "The period belongs after the parenthetical citation, not inside the quotation marks.", "The first word should be capitalized, because the quotation follows a speech verb."], "After \"that,\" the quotation flows into the sentence with no comma."),
+  SE("quote", QUOTE_LEAD, "Montresor declares, “the thousand injuries of Fortunato I had borne as I best could” (Poe).", ["The first word should be capitalized, because the quotation follows a speech verb and a comma.", "No comma should come before the quotation.", "A quotation should never begin with an ellipsis.", "The past-tense verb should be changed to present tense in brackets."], "After a speech verb and a comma, the quotation starts like a new sentence: “The thousand injuries...”"),
+  SE("quote", QUOTE_LEAD, "Fortunato cries, “For the love of God, Montresor” (Poe)!", ["The exclamation point belongs inside the quotation marks.", "No comma should come after \"cries.\"", "The first word should be lowercase in brackets.", "The semicolon from the original should not be carried over."], "Punctuation that belongs to the original line stays inside: “For the love of God, Montresor!” (Poe)."),
+  SE("quote", QUOTE_LEAD, "The creature confesses, “I was benevolent and good; misery made me a fiend.” (Shelley)", ["The period belongs after the parenthetical citation, not inside the quotation marks.", "No comma should come after \"confesses.\"", "The first word should be lowercase in brackets.", "A quotation should never begin with an ellipsis."], "Correct: ...made me a fiend” (Shelley)."),
+  SE("quote", QUOTE_LEAD, "Victor urges Walton to learn “. . . how dangerous is the acquirement of knowledge” (Shelley).", ["A quotation should never begin with an ellipsis.", "A comma is needed before the quotation.", "The period belongs inside the quotation marks.", "The first word should be capitalized."], "Ellipses only show words left out of the middle. Just start with “how dangerous...”"),
+  SE("quote", QUOTE_LEAD, "The creature admits that he “was benevolent and good;” (Shelley).", ["The semicolon from the original should not be carried over to the end of the quotation.", "No comma should come before the quotation.", "The past-tense verb should be changed to present tense in brackets.", "The first word should be capitalized."], "Drop the original's semicolon when your quotation ends there."),
+  SE("quote", QUOTE_LEAD, "At the carnival, Fortunato “had on a tight-fitting parti-striped dress” (Poe).", ["The past-tense verb should be changed to present tense in brackets, [has], to match the analysis.", "The period belongs inside the quotation marks.", "A comma is needed before the quotation.", "A quotation should never begin with an ellipsis."], "Literary analysis is written in present tense: Fortunato “[has] on a tight-fitting parti-striped dress” (Poe)."),
+  SE("quote", QUOTE_LEAD, "Ford Prefect jokes that “Time is an illusion” (Adams).", ["The first word should be lowercase in brackets, because the quotation is embedded after \"that.\"", "A comma is needed after \"that.\"", "The period belongs inside the quotation marks.", "The first word should stay capitalized because it begins a sentence in the original."], "Embedded after \"that\": “[t]ime is an illusion” (Adams)."),
+  SE("quote", QUOTE_LEAD, "Juliet asks “What's in a name?” (Shakespeare 2.2).", ["A comma is needed after a speech verb before the quotation.", "The question mark belongs outside the quotation marks.", "The first word should be lowercase in brackets.", "No period should follow the citation."], "Speech verb + comma + capital: Juliet asks, “What's in a name?” (Shakespeare 2.2)."),
+  // Commentary
+  comm("Evidence: The sergeant-major explains that the paw was meant to show “that fate ruled people's lives” (Jacobs).<br>Commentary: This quote shows that the paw was made to prove that fate controls people's lives.", 3, "It repeats the evidence in different words without unpacking any detail."),
+  comm("Evidence: Montresor recalls how he “vowed revenge” (Poe).<br>Commentary: There is a lot going on in this part. This cold, blunt diction reveals how calmly Montresor plans a murder.", 0, "\"A lot going on in this part\" points to nothing. Notice a word: \"vowed.\""),
+  comm("Evidence: Montresor complains of “the thousand injuries of Fortunato” (Poe).<br>Commentary: The word \"thousand\" is hyperbole. It is a good example of a literary device.", 2, "It notices and names, but never says what the exaggeration reveals about Montresor."),
+  comm("Evidence: Victor calls his creation “the miserable monster whom I had created” (Shelley).<br>Commentary: The phrase \"miserable monster\" stands out. By calling his creation a monster, Victor reveals that he judges the creature by its looks before it ever acts.", 1, "It never labels the technique: diction or alliteration."),
+  comm("Evidence: Ford observes, “Time is an illusion. Lunchtime doubly so” (Adams).<br>Commentary: Adams follows a grand claim with the word \"Lunchtime.\" This is a device. The jump from deep philosophy to a silly daily concern mocks how seriously people take big ideas.", 1, "\"This is a device\" names nothing. Try: \"This bathos (or humorous juxtaposition)...\""),
+  comm("Evidence: The creature says, “I was benevolent and good; misery made me a fiend” (Shelley).<br>Commentary: The creature says that he used to be good but misery turned him into a fiend.", 3, "It is a paraphrase of the quote, not commentary."),
+  comm("Evidence: Odysseus tells the Cyclops his name is “Nobody” (Homer).<br>Commentary: The fake name \"Nobody\" is clever wordplay. This makes the story better.", 2, "\"Makes the story better\" explains nothing. What does the trick reveal about Odysseus?"),
+  comm("Evidence: The story opens, “One dollar and eighty-seven cents. That was all” (Henry).<br>Commentary: The writer says something about money. This blunt sentence fragment exposes how desperate Della's poverty has become.", 0, "\"Says something about money\" is not a specific detail. Notice \"That was all.\""),
+];
+const ERROR_FILTERS = [
+  { id: "all", label: "All types" },
+  { id: "claim", label: "Analytical claims" },
+  { id: "transition", label: "Transitions" },
+  { id: "quote", label: "Quote integration" },
+  { id: "commentary", label: "Commentary" },
 ];
 
 const SECTIONS = [
-  { id: "genres", tab: "Literary Genres", title: "Literary Genres: Multiple Choice", desc: "Myths and Campbell's four functions, archetypes, magical realism, science fiction, and historical and realistic fiction. Choose an answer to see whether you are right.", kind: "quiz", items: GENRES },
-  { id: "terms", tab: "Literary Terms", title: "Literary Terms: Flashcards", desc: "Every term from the Literary Elements and Devices glossary. Choose whether the term or the definition shows first, then click the card to flip it.", kind: "cards" },
-  { id: "reading", tab: "Reading and Application", title: "Reading and Application", desc: "Read a short practice passage, then answer comprehension and literary analysis questions about it, just like the reading section of the midterm.", kind: "reading" },
-  { id: "errors", tab: "Spot the Error", title: "Spot the Error", desc: "Analytical claims, Notice-Name-Explain commentary, quote integration, transitions, and style rules. The last few ask you to fix the sentence yourself.", kind: "quiz", items: ERRORS },
+  { id: "genres", tab: "Literary Genres", title: "Part 1 Practice: Literary Genres", desc: "Multiple choice on myths and Campbell's functions, archetypes, magical realism, science fiction, Gothic fiction, and historical and realistic fiction.", kind: "quiz", items: GENRES },
+  { id: "terms", tab: "Literary Terms", title: "Part 2 Practice: Literary Terms", desc: "Match each term to its definition, just like the exam. Each set pulls 10 terms from the glossary. Switch to flashcards to study first.", kind: "terms" },
+  { id: "reading", tab: "Reading and Application", title: "Part 3 Practice: Reading and Application", desc: "Read a short practice passage, then answer comprehension and literary analysis questions about it.", kind: "reading" },
+  { id: "errors", tab: "Spot the Error", title: "Part 4 Practice: Spot the Error", desc: "All multiple choice, and every item has exactly ONE error: analytical claims, transition punctuation, quote integration, and commentary. Practice one type at a time or mix them.", kind: "errors" },
 ];
 
 /* ---------- State ---------- */
-const LETTERS = ["A", "B", "C", "D"];
+const LETTERS = "ABCDEFGHIJ".split("");
 const state = {
   section: 0,
-  quiz: {},          // key -> { pos, answers: {idx: choice}, revealed: {idx: true} }
+  quiz: {},          // key -> { pos, answers: {idx: originalChoice}, perms: {idx: [..]} }
   cards: { pos: 0, order: TERMS.map((_, i) => i), flipped: false, termFirst: true },
+  termsMode: "match",
+  match: null,
   passage: 0,
+  errFilter: "all",
 };
 try { const s = localStorage.getItem("eng9-review-termFirst"); if (s !== null) state.cards.termFirst = s === "1"; } catch (e) {}
 
 const $ = (id) => document.getElementById(id);
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-function quizState(key) { if (!state.quiz[key]) state.quiz[key] = { pos: 0, answers: {}, revealed: {} }; return state.quiz[key]; }
+const fmt = (s) => esc(s).replace(/&lt;br&gt;/g, "<br>").replace(/__(.+?)__/g, "<u>$1</u>");
+const shuffled = (arr) => { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+function quizState(key) { if (!state.quiz[key]) state.quiz[key] = { pos: 0, answers: {}, perms: {} }; return state.quiz[key]; }
 
 /* ---------- Tabs ---------- */
 SECTIONS.forEach((s, i) => {
@@ -333,36 +393,30 @@ function renderQuiz(container, items, key) {
   const qs = quizState(key);
   const item = items[qs.pos];
   const answered = Object.keys(qs.answers).length;
-  const correct = Object.entries(qs.answers).filter(([i, c]) => items[i].type === "mc" && items[i].a === c).length;
-  const mcTotal = items.filter((x) => x.type === "mc").length;
-  let body = "";
-  if (item.type === "mc") {
-    const chosen = qs.answers[qs.pos];
-    const done = chosen !== undefined;
-    const btns = item.o.map((opt, k) => {
-      let cls = "choice";
-      if (done && k === item.a) cls += " correct";
-      if (done && k === chosen && k !== item.a) cls += " wrong";
-      return `<button type="button" class="${cls}" data-k="${k}" ${done ? "disabled" : ""}><span class="letter">${LETTERS[k]}.</span><span>${esc(opt)}</span></button>`;
-    }).join("");
-    let fb = "";
-    if (done) {
-      const ok = chosen === item.a;
-      fb = `<div class="feedback ${ok ? "good" : "bad"}" role="status"><strong>${ok ? "Correct." : "Not quite. The answer is " + LETTERS[item.a] + "."}</strong>${esc(item.why)}</div>`;
-    }
-    body = `<div class="kind">Multiple choice</div><p class="q">${esc(item.q)}</p><div class="choices">${btns}</div>${fb}`;
-  } else {
-    const shown = qs.revealed[qs.pos];
-    body = `<div class="kind">Fix the sentence</div><p class="q">${esc(item.q)}</p>
-      <label class="small" for="fix-${key}">Type your corrected sentence:</label>
-      <textarea id="fix-${key}" placeholder="Rewrite the sentence correctly."></textarea>
-      <div class="controls" style="margin-top:12px;justify-content:flex-start"><button type="button" class="btn" id="reveal">${shown ? "Hide answer" : "Show answer"}</button></div>
-      ${shown ? `<div class="feedback good" role="status"><strong>Corrected sentence</strong>${esc(item.a)}</div>` : ""}`;
+  const correct = Object.entries(qs.answers).filter(([i, c]) => items[i].a === c).length;
+  if (!qs.perms[qs.pos]) qs.perms[qs.pos] = item.fixed ? item.o.map((_, k) => k) : shuffled(item.o.map((_, k) => k));
+  const perm = qs.perms[qs.pos];
+  const chosen = qs.answers[qs.pos];
+  const done = chosen !== undefined;
+  const btns = perm.map((k, d) => {
+    let cls = "choice";
+    if (done && k === item.a) cls += " correct";
+    if (done && k === chosen && k !== item.a) cls += " wrong";
+    return `<button type="button" class="${cls}" data-k="${k}" ${done ? "disabled" : ""}><span class="letter">${LETTERS[d]}.</span><span>${fmt(item.o[k])}</span></button>`;
+  }).join("");
+  let fb = "";
+  if (done) {
+    const ok = chosen === item.a;
+    fb = `<div class="feedback ${ok ? "good" : "bad"}" role="status"><strong>${ok ? "Correct." : "Not quite. The answer is " + LETTERS[perm.indexOf(item.a)] + "."}</strong>${fmt(item.why)}</div>`;
   }
+  const kinds = { claim: "Analytical claim", transition: "Transition punctuation", quote: "Quote integration", commentary: "Commentary" };
+  const lead = item.lead ? `<p class="lead">${esc(item.lead)}</p>` : "";
+  const qcls = item.cat ? "q sentence" : "q";
+  const body = `<div class="kind">${item.cat ? kinds[item.cat] : "Multiple choice"}</div>${lead}<p class="${qcls}">${fmt(item.q)}</p><div class="choices">${btns}</div>${fb}`;
   container.innerHTML = `
     <div class="toolbar">
       <span class="progress">Question ${qs.pos + 1} of ${items.length}</span>
-      <span class="progress">Score: <span class="score">${correct} of ${mcTotal}</span> multiple choice correct</span>
+      <span class="progress">Score: <span class="score">${correct} of ${Object.keys(qs.answers).length}</span> answered correctly</span>
     </div>
     <div class="box">${body}</div>
     <div class="controls">
@@ -371,11 +425,82 @@ function renderQuiz(container, items, key) {
       <button type="button" class="btn" id="qreset">Start over</button>
     </div>`;
   container.querySelectorAll(".choice").forEach((b) => b.addEventListener("click", () => { qs.answers[qs.pos] = Number(b.dataset.k); renderQuiz(container, items, key); }));
-  const rv = container.querySelector("#reveal");
-  if (rv) rv.addEventListener("click", () => { const t = container.querySelector("textarea").value; qs.revealed[qs.pos] = !qs.revealed[qs.pos]; renderQuiz(container, items, key); container.querySelector("textarea").value = t; });
   $("qprev").addEventListener("click", () => { qs.pos--; renderQuiz(container, items, key); });
   $("qnext").addEventListener("click", () => { qs.pos++; renderQuiz(container, items, key); });
-  $("qreset").addEventListener("click", () => { state.quiz[key] = { pos: 0, answers: {}, revealed: {} }; renderQuiz(container, items, key); });
+  $("qreset").addEventListener("click", () => { state.quiz[key] = { pos: 0, answers: {}, perms: {} }; renderQuiz(container, items, key); });
+}
+
+/* ---------- Spot the Error ---------- */
+function renderErrors(container) {
+  const f = state.errFilter;
+  const items = f === "all" ? ERRORS : ERRORS.filter((x) => x.cat === f);
+  const subtabs = ERROR_FILTERS.map((x) => {
+    const n = x.id === "all" ? ERRORS.length : ERRORS.filter((e) => e.cat === x.id).length;
+    return `<button type="button" class="subtab" data-f="${x.id}" aria-selected="${x.id === f}">${x.label} <span class="count">${n}</span></button>`;
+  }).join("");
+  container.innerHTML = `<div class="subtabs" role="tablist" aria-label="Error types">${subtabs}</div><div class="panel" id="eq"></div>`;
+  container.querySelectorAll(".subtab").forEach((b) => b.addEventListener("click", () => { state.errFilter = b.dataset.f; renderErrors(container); }));
+  renderQuiz($("eq"), items, "errors-" + f);
+}
+
+/* ---------- Literary terms: matching + flashcards ---------- */
+function newMatchSet() {
+  const terms = shuffled(TERMS.map((_, i) => i)).slice(0, 10);
+  state.match = { terms, defs: shuffled(terms), answers: {}, checked: false };
+}
+function renderTerms(container) {
+  const mode = state.termsMode;
+  container.innerHTML = `
+    <div class="toolbar">
+      <div><span class="seg-label" id="mode-label">Practice:</span>
+        <span class="seg" role="group" aria-labelledby="mode-label">
+          <button type="button" id="m-match" aria-pressed="${mode === "match"}">Matching</button>
+          <button type="button" id="m-cards" aria-pressed="${mode === "cards"}">Flashcards</button>
+        </span></div>
+    </div>
+    <div class="panel" id="tv"></div>`;
+  $("m-match").addEventListener("click", () => { state.termsMode = "match"; renderTerms(container); });
+  $("m-cards").addEventListener("click", () => { state.termsMode = "cards"; renderTerms(container); });
+  if (mode === "cards") renderCards($("tv")); else renderMatch($("tv"));
+}
+function renderMatch(container) {
+  if (!state.match) newMatchSet();
+  const m = state.match;
+  const opts = (i) => `<option value="">—</option>` + m.defs.map((_, d) => `<option value="${d}" ${String(m.answers[i]) === String(d) ? "selected" : ""}>${LETTERS[d]}</option>`).join("");
+  const rows = m.terms.map((t, i) => {
+    let mark = "";
+    if (m.checked) {
+      const right = m.defs.indexOf(t);
+      const ok = Number(m.answers[i]) === right && m.answers[i] !== undefined && m.answers[i] !== "";
+      mark = ok ? `<span class="mark good">Correct</span>` : `<span class="mark bad">Answer: ${LETTERS[right]}</span>`;
+    }
+    return `<li><label><span class="tnum">${i + 1}.</span> <select data-i="${i}" ${m.checked ? "disabled" : ""} aria-label="Definition for ${esc(TERMS[t][0])}">${opts(i)}</select> <span class="tname">${esc(TERMS[t][0])}</span></label>${mark}</li>`;
+  }).join("");
+  const defs = m.defs.map((t, d) => `<li><span class="dl">${LETTERS[d]}.</span> ${esc(TERMS[t][1])}</li>`).join("");
+  let score = "";
+  if (m.checked) {
+    const n = m.terms.filter((t, i) => m.answers[i] !== undefined && m.answers[i] !== "" && Number(m.answers[i]) === m.defs.indexOf(t)).length;
+    score = `<div class="feedback ${n === 10 ? "good" : "bad"}" role="status"><strong>You matched ${n} of 10 correctly.</strong>Review any you missed, then try a new set.</div>`;
+  }
+  container.innerHTML = `
+    <div class="box">
+      <div class="kind">Matching</div>
+      <p class="lead">Write the letter of the correct definition next to each term. Each letter is used once.</p>
+      <div class="match">
+        <ol class="mterms">${rows}</ol>
+        <ol class="mdefs">${defs}</ol>
+      </div>
+      ${score}
+    </div>
+    <div class="controls">
+      <button type="button" class="btn primary" id="mcheck" ${m.checked ? "disabled" : ""}>Check answers</button>
+      <button type="button" class="btn" id="mretry" ${m.checked ? "" : "disabled"}>Try this set again</button>
+      <button type="button" class="btn" id="mnew">New set of 10</button>
+    </div>`;
+  container.querySelectorAll("select").forEach((s) => s.addEventListener("change", () => { m.answers[s.dataset.i] = s.value; }));
+  $("mcheck").addEventListener("click", () => { m.checked = true; renderMatch(container); });
+  $("mretry").addEventListener("click", () => { m.checked = false; m.answers = {}; renderMatch(container); });
+  $("mnew").addEventListener("click", () => { newMatchSet(); renderMatch(container); });
 }
 
 /* ---------- Flashcards ---------- */
@@ -423,9 +548,9 @@ function renderCards(container) {
 }
 let cardKeys = null;
 document.addEventListener("keydown", (e) => {
-  if (SECTIONS[state.section].kind !== "cards" || !cardKeys) return;
+  if (SECTIONS[state.section].kind !== "terms" || state.termsMode !== "cards" || !cardKeys) return;
   const tag = e.target.tagName;
-  if (tag === "TEXTAREA" || (tag === "BUTTON" && e.key === " ")) return;
+  if (tag === "TEXTAREA" || tag === "SELECT" || (tag === "BUTTON" && e.key === " ")) return;
   if (e.key === " ") { e.preventDefault(); cardKeys.flip(); }
   else if (e.key === "ArrowRight") cardKeys.go(1);
   else if (e.key === "ArrowLeft") cardKeys.go(-1);
@@ -458,7 +583,8 @@ function render() {
   $("section-desc").textContent = s.desc;
   const v = $("view");
   if (s.kind === "quiz") renderQuiz(v, s.items, s.id);
-  else if (s.kind === "cards") renderCards(v);
+  else if (s.kind === "terms") renderTerms(v);
+  else if (s.kind === "errors") renderErrors(v);
   else renderReading(v);
 }
 function route() {
